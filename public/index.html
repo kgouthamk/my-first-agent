@@ -465,7 +465,12 @@
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
-          form.requestSubmit();
+          if (isSending) return;
+          const value = input.value.trim();
+          if (!value) return;
+          input.value = '';
+          autoResizeTextarea();
+          sendMessage(value);
         }
       });
 
